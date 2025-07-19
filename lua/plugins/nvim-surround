@@ -1,0 +1,38 @@
+return {
+    'kylechui/nvim-surround',
+    version = '^3.0.0', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
+    opts = {
+      keymaps = {
+        insert = '<C-g>s',
+        insert_line = '<C-g>S',
+        normal = 'ys',
+        normal_cur = 'yss',
+        normal_line = 'yS',
+        normal_cur_line = 'ySS',
+        visual = 'S',
+        visual_line = 'gS',
+        delete = 'ds',
+        change = 'cs',
+      },
+
+      aliases = {
+        a = '>', -- Angle brackets
+        b = ')', -- Parentheses
+        B = '}', -- Curly braces
+        q = { '"', "'", '`' }, -- Quotes
+        s = ' ', -- Spaces
+        t = '<', -- HTML tags
+      },
+    },
+    config = function(_, opts)
+      require('nvim-surround').setup(opts)
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'SessionSavePre',
+        callback = function()
+          vim.api.nvim_exec_autocmds('BuffWritePre', { group = 'nvim-surround' })
+        end,
+      })
+    end,
+  }
