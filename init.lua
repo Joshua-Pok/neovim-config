@@ -284,6 +284,446 @@ require('lazy').setup({
     },
   },
 
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        theme = 'hyper',
+        config = {
+          header = {
+            '',
+            '       ██╗ ██████╗ ███████╗██╗  ██╗██╗   ██╗ █████╗    ',
+            '       ██║██╔═══██╗██╔════╝██║  ██║██║   ██║██╔══██╗   ',
+            '       ██║██║   ██║███████╗███████║██║   ██║███████║   ',
+            '  ██   ██║██║   ██║╚════██║██╔══██║██║   ██║██╔══██║   ',
+            '  ╚█████╔╝╚██████╔╝███████║██║  ██║╚██████╔╝██║  ██║   ',
+            '   ╚════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ',
+            '',
+          },
+
+          center = {
+            {
+              icon = '  ',
+              icon_hl = 'Title',
+              desc = 'New File          ',
+              desc_hl = 'String',
+              key = 'n',
+              keymap = 'SPC f n',
+              key_hl = 'Number',
+              action = 'enew',
+            },
+            {
+              icon = '  ',
+              icon_hl = 'Title',
+              desc = 'Find File         ',
+              desc_hl = 'String',
+              key = 'f',
+              keymap = 'SPC f f',
+              key_hl = 'Number',
+              action = 'Telescope find_files',
+            },
+            {
+              icon = 'פּ  ',
+              icon_hl = 'Title',
+              desc = 'Recent Files      ',
+              desc_hl = 'String',
+              key = 'r',
+              keymap = 'SPC f r',
+              key_hl = 'Number',
+              action = 'Telescope oldfiles',
+            },
+            {
+              icon = '  ',
+              icon_hl = 'Title',
+              desc = 'Config            ',
+              desc_hl = 'String',
+              key = 'c',
+              keymap = 'SPC f c',
+              key_hl = 'Number',
+              action = 'edit ~/.config/nvim/init.lua',
+            },
+            {
+              icon = '  ',
+              icon_hl = 'Title',
+              desc = 'Quit              ',
+              desc_hl = 'String',
+              key = 'q',
+              keymap = 'SPC q',
+              key_hl = 'Number',
+              action = 'qa',
+            },
+          },
+        },
+      }
+    end,
+
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+  },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  },
+
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
+  },
+
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+    opts = {
+      dir = vim.fn.stdpath 'data' .. '/sessions',
+      options = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals' },
+      pre_save = function()
+        vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+      end,
+      save_empty = false,
+    },
+    keys = {
+      {
+        '<leader>ss',
+        function()
+          require('persistence').save()
+        end,
+        desc = 'Save Session',
+      },
+      {
+        '<leader>sl',
+        function()
+          require('persistence').load()
+        end,
+        desc = 'Load Session',
+      },
+      {
+        '<leader>sL',
+        function()
+          require('persistence').load { last = true }
+        end,
+        desc = 'Load Last Session',
+      },
+      {
+        '<leader>sd',
+        function()
+          require('persistence').stop()
+        end,
+        desc = 'Stop Sesion Autosave',
+      },
+    },
+    config = function(_, opts)
+      require('persistence').setup(opts)
+      vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function()
+          if vim.fn.argc() == 0 then
+            require('persistence').load()
+          end
+        end,
+      })
+    end,
+  },
+
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup {}
+    end,
+  },
+
+  {
+    'kylechui/nvim-surround',
+    version = '^3.0.0', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
+    opts = {
+      keymaps = {
+        insert = '<C-g>s',
+        insert_line = '<C-g>S',
+        normal = 'ys',
+        normal_cur = 'yss',
+        normal_line = 'yS',
+        normal_cur_line = 'ySS',
+        visual = 'S',
+        visual_line = 'gS',
+        delete = 'ds',
+        change = 'cs',
+      },
+
+      aliases = {
+        a = '>', -- Angle brackets
+        b = ')', -- Parentheses
+        B = '}', -- Curly braces
+        q = { '"', "'", '`' }, -- Quotes
+        s = ' ', -- Spaces
+        t = '<', -- HTML tags
+      },
+    },
+    config = function(_, opts)
+      require('nvim-surround').setup(opts)
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'SessionSavePre',
+        callback = function()
+          vim.api.nvim_exec_autocmds('BuffWritePre', { group = 'nvim-surround' })
+        end,
+      })
+    end,
+  },
+
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'mocha',
+        transparent_background = true,
+      }
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+  },
+
+  {
+    's1n7ax/nvim-terminal',
+    config = function()
+      vim.o.hidden = true
+      require('nvim-terminal').setup()
+    end,
+  },
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      'rcarriga/nvim-notify',
+    },
+  },
+
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup()
+    end,
+  },
+
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {},
+  -- stylua: ignore
+  keys = {
+    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  },
+  },
+
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      -- DAP UI for a better debugging experience
+      {
+        'rcarriga/nvim-dap-ui',
+        dependencies = { 'nvim-neotest/nvim-nio' },
+        opts = {
+          layouts = {
+            {
+              elements = {
+                { id = 'scopes', size = 0.25 },
+                { id = 'breakpoints', size = 0.25 },
+                { id = 'stacks', size = 0.25 },
+                { id = 'watches', size = 0.25 },
+              },
+              size = 40,
+              position = 'left',
+            },
+            {
+              elements = { 'repl', 'console' },
+              size = 10,
+              position = 'bottom',
+            },
+          },
+        },
+        config = function(_, opts)
+          local dap = require 'dap'
+          local dapui = require 'dapui'
+          dapui.setup(opts)
+          -- Auto-open/close DAP UI
+          dap.listeners.after.event_initialized['dapui_config'] = function()
+            dapui.open {}
+          end
+          dap.listeners.before.event_terminated['dapui_config'] = function()
+            dapui.close {}
+          end
+          dap.listeners.before.event_exited['dapui_config'] = function()
+            dapui.close {}
+          end
+        end,
+      },
+      -- Virtual text for variable values
+      {
+        'theHamsta/nvim-dap-virtual-text',
+        opts = {
+          enabled = true,
+          enabled_commands = true,
+          highlight_changed_variables = true,
+        },
+      },
+      -- Mason integration for DAP
+      {
+        'jay-babu/mason-nvim-dap.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
+        opts = {
+          ensure_installed = { 'python', 'js-debug-adapter' },
+          automatic_installation = true,
+          handlers = {
+            python = function(config)
+              -- Handled by nvim-dap-python below
+              require('mason-nvim-dap').default_setup(config)
+            end,
+            -- JavaScript/TypeScript handler
+            js_debug_adapter = function(config)
+              config.adapters = {
+                type = 'executable',
+                command = vim.fn.stdpath 'data' .. '\\mason\\bin\\js-debug-adapter.cmd',
+                args = {},
+              }
+              require('mason-nvim-dap').default_setup(config)
+            end,
+          },
+        },
+      },
+      -- Python DAP extension
+      {
+        'mfussenegger/nvim-dap-python',
+        ft = 'python',
+        config = function()
+          local python_path = vim.fn.stdpath 'data' .. '\\mason\\packages\\debugpy\\venv\\Scripts\\python.exe'
+          require('dap-python').setup(python_path)
+          -- Optional: Add custom Python configurations
+          table.insert(require('dap').configurations.python, {
+            type = 'python',
+            request = 'launch',
+            name = 'Launch file with custom args',
+            program = '${file}',
+            args = function()
+              local args_string = vim.fn.input 'Arguments: '
+              return vim.split(args_string, ' ')
+            end,
+            pythonPath = function()
+              -- Use project-specific virtualenv if available
+              local cwd = vim.fn.getcwd()
+              if vim.fn.executable(cwd .. '\\venv\\Scripts\\python.exe') == 1 then
+                return cwd .. '\\venv\\Scripts\\python.exe'
+              elseif vim.fn.executable(cwd .. '\\.venv\\Scripts\\python.exe') == 1 then
+                return cwd .. '\\venv\\Scripts\\python.exe'
+              else
+                return python_path
+              end
+            end,
+          })
+        end,
+      },
+      -- JavaScript/TypeScript DAP extension
+      {
+        'mxsdev/nvim-dap-vscode-js',
+        dependencies = {
+          {
+            'microsoft/vscode-js-debug',
+            build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && move dist out',
+          },
+        },
+        config = function()
+          require('dap-vscode-js').setup {
+            debugger_path = vim.fn.stdpath 'data' .. '\\lazy\\vscode-js-debug',
+            adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
+          }
+          for _, language in ipairs { 'javascript', 'typescript' } do
+            require('dap').configurations[language] = {
+              {
+                type = 'pwa-node',
+                request = 'launch',
+                name = 'Launch file',
+                program = '${file}',
+                cwd = '${workspaceFolder}',
+                sourceMaps = true,
+                protocol = 'inspector',
+                console = 'integratedTerminal',
+              },
+              {
+                type = 'pwa-node',
+                request = 'attach',
+                name = 'Attach to process',
+                processId = require('dap.utils').pick_process,
+                cwd = '${workspaceFolder}',
+                sourceMaps = true,
+              },
+              {
+                type = 'pwa-chrome',
+                request = 'launch',
+                name = 'Launch Chrome',
+                url = 'http://localhost:3000',
+                webRoot = '${workspaceFolder}',
+                sourceMaps = true,
+              },
+            }
+          end
+        end,
+      },
+    },
+    -- Keybindings for DAP
+    keys = {
+      { '<leader>dc', "<cmd>lua require('dap').continue()<CR>", desc = 'Continue' },
+      { '<leader>db', "<cmd>lua require('dap').toggle_breakpoint()<CR>", desc = 'Toggle Breakpoint' },
+      { '<leader>dB', "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", desc = 'Conditional Breakpoint' },
+      { '<leader>do', "<cmd>lua require('dap').step_over()<CR>", desc = 'Step Over' },
+      { '<leader>di', "<cmd>lua require('dap').step_into()<CR>", desc = 'Step Into' },
+      { '<leader>dO', "<cmd>lua require('dap').step_out()<CR>", desc = 'Step Out' },
+      { '<leader>dr', "<cmd>lua require('dap').repl.toggle()<CR>", desc = 'Toggle REPL' },
+      { '<leader>du', "<cmd>lua require('dapui').toggle()<CR>", desc = 'Toggle DAP UI' },
+      { '<leader>dPt', "<cmd>lua require('dap-python').test_method()<CR>", desc = 'Debug Python Method', ft = 'python' },
+      { '<leader>dPc', "<cmd>lua require('dap-python').test_class()<CR>", desc = 'Debug Python Class', ft = 'python' },
+    },
+    config = function()
+      -- Set log level for debugging issues
+      require('dap').set_log_level 'INFO'
+    end,
+  },
+
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -486,9 +926,6 @@ require('lazy').setup({
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      -- Useful status updates for LSP.
-      { 'j-hui/fidget.nvim', opts = {} },
-
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
     },
@@ -626,35 +1063,6 @@ require('lazy').setup({
         end,
       })
 
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
-      vim.diagnostic.config {
-        severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
-          },
-        } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
-      }
-
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
       --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -671,9 +1079,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
+        clangd = {},
+        gopls = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -681,7 +1089,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -772,7 +1180,7 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -876,28 +1284,6 @@ require('lazy').setup({
     },
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -912,32 +1298,11 @@ require('lazy').setup({
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -973,12 +1338,12 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
