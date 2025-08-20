@@ -17,6 +17,7 @@ keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 keymap('n', '<leader>bn', ':bnext<CR>', { desc = 'Next Buffer' })
 keymap('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous Buffer' })
 keymap('n', '<leader>bd', ':bdelete<CR>')
+keymap('n', '<leader>fp', '<cmd>Telescope projects<CR>', { desc = 'find projects' })
 -- Uncomment these if you want to disable arrow keys in normal mode
 -- keymap('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- keymap('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
