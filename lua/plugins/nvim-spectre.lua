@@ -39,21 +39,21 @@ return {
   end,
   keys = {
     {
-      '<leader>S',
+      '<leader>rr',
       function()
         require('spectre').toggle()
       end,
       desc = 'Toggle Spectre',
     },
     {
-      '<leader>sw',
+      '<leader>rw',
       function()
         require('spectre').open_visual { select_word = true }
       end,
       desc = 'Search current word',
     },
     {
-      '<leader>sw',
+      '<leader>rv',
       function()
         require('spectre').open_visual()
       end,
@@ -61,7 +61,7 @@ return {
       desc = 'Search current word',
     },
     {
-      '<leader>sp',
+      '<leader>rf',
       function()
         require('spectre').open_file_search { select_word = true }
       end,
