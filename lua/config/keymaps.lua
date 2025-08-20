@@ -1,4 +1,3 @@
-
 local keymap = vim.keymap.set
 
 -- Clear search highlights
@@ -16,7 +15,7 @@ keymap('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 keymap('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-
+keymap('n', '<leader>bd', ':bdelete<CR>')
 -- Uncomment these if you want to disable arrow keys in normal mode
 -- keymap('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- keymap('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -28,3 +27,4 @@ keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- keymap("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- keymap("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- keymap("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
