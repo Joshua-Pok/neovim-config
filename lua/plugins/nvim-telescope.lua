@@ -65,6 +65,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
         preview = {
           enable = true,
         },
+        file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+        grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+        qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
       },
       --   mappings = {
       --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
@@ -75,6 +78,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
+        },
+        file_browser = {
+          hijack_netrw = true,
+          previewer = true,
         },
       },
     }
@@ -97,7 +104,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>fp', '<cmd>Telescope projects<cr>', { desc = 'Search Projects' })
-    vim.keymap.set('n', '<leader>fb', 'Telescope file_browser<CR>')
+    vim.keymap.set('n', '<leader>fb', '<cmd>Telescope file_browser<CR>')
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
       -- You can pass additional configuration to Telescope to change the theme, layout, etc.
