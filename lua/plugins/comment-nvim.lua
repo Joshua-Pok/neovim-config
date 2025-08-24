@@ -1,6 +1,3 @@
 return {
-  'numToStr/Comment.nvim',
-  opts = {
-    -- add any options here
-  },
+  'tpope/vim-commentary',
 }
