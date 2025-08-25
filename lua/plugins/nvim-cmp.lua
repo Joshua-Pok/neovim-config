@@ -40,8 +40,16 @@ return {
         end,
       },
       window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered {
+          border = 'rounded',
+          max_width = 60,
+          max_height = 10,
+        },
+        documentation = cmp.config.window.bordered {
+          border = 'rounded',
+          max_width = 60,
+          max_height = 10,
+        },
       },
       mapping = cmp.mapping.preset.insert {
         ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
@@ -120,6 +128,7 @@ return {
             buffer = '[Buffer]',
             path = '[Path]',
             nvim_lua = '[Lua]',
+            nvim_lsp_signature_help = '[Signature]',
           })[entry.source.name]
           return vim_item
         end,
