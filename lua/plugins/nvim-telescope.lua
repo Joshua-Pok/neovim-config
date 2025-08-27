@@ -17,6 +17,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
+    { 'nvim-telescope/telescope-live-grep-args.nvim' },
 
     {
       'ahmedkhalf/project.nvim',
@@ -91,6 +92,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'projects')
     pcall(require('telescope').load_extension, 'file_browser')
+    pcall(require('telescope').load_extension, 'live_grep_args')
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
