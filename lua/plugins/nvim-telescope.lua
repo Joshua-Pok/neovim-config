@@ -18,6 +18,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
+    { 'nvim-telescope/telescope-media-files.nvim' },
 
     {
       'ahmedkhalf/project.nvim',
@@ -84,6 +85,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
           hijack_netrw = true,
           previewer = true,
         },
+        media_files = {
+          filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf' },
+          find_cmd = 'rg',
+          preview = {
+            width = 0.7,
+            height = 0.7,
+          },
+        },
       },
     }
 
@@ -93,6 +102,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'projects')
     pcall(require('telescope').load_extension, 'file_browser')
     pcall(require('telescope').load_extension, 'live_grep_args')
+    pcall(require('telescope').load_extension, 'media_files')
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
