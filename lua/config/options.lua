@@ -35,7 +35,7 @@ opt.updatetime = 250
 opt.timeoutlen = 300
 opt.splitright = true
 opt.splitbelow = true
-
+opt.relativenumber = true
 -- Whitespace visualization
 opt.list = true
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -51,3 +51,4 @@ opt.scrolloff = 10
 
 -- Confirmation dialogs
 opt.confirm = true
+
