@@ -34,6 +34,7 @@ opt.signcolumn = 'yes'
 opt.updatetime = 250
 opt.timeoutlen = 300
 opt.splitright = true
+opt.wrap = true
 opt.splitbelow = true
 opt.relativenumber = true
 -- Whitespace visualization
@@ -51,4 +52,3 @@ opt.scrolloff = 10
 
 -- Confirmation dialogs
 opt.confirm = true
-
