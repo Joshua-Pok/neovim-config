@@ -2,7 +2,6 @@
 -- Vim options and settings
 
 local opt = vim.opt
-local o = vim.o
 
 -- Line numbers
 opt.number = true
@@ -46,7 +45,6 @@ opt.inccommand = 'split'
 
 -- Cursor line highlighting
 opt.cursorline = true
-
 -- Scrolling
 opt.scrolloff = 10
 
