@@ -8,7 +8,9 @@ keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q
 
 -- Terminal mode keymaps
 keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
+keymap({ 'n', 'x' }, '<leader>ca', function()
+  require('tiny-code-action').code_action()
+end, { noremap = true, silent = true })
 -- Window navigation
 keymap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 keymap('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
