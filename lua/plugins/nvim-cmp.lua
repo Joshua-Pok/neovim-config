@@ -12,6 +12,8 @@ return {
     -- Buffer completions
     'hrsh7th/cmp-buffer',
 
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
+
     -- Path completions
     'hrsh7th/cmp-path',
 
