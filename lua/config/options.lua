@@ -21,6 +21,8 @@ end)
 -- Indentation
 opt.breakindent = true
 
+--wildmenu
+opt.wildmenu = true
 -- Undo history
 opt.undofile = true
 
