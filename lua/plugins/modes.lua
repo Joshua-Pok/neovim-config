@@ -15,6 +15,10 @@ return {
           select = '#9745be', -- Optional param, defaults to visual
           visual = '#9745be',
         },
+        set_cursor = true,
+        set_cursorline = true,
+        set_number = true,
+        set_signcolumn = true,
       }
     end,
   },
