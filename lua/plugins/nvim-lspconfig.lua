@@ -39,6 +39,23 @@ return {
     },
   },
   config = function()
+    local methods = vim.lsp.protocol.Methods
+    local inlay_hint_handler = vim.lsp.handlers[methods['textDocument_inlayHint']]
+    vim.lsp.handlers[methods['textDocument_inlayHint']] = function(err, result, ctx, config)
+      local client = vim.lsp.get_client_by_id(ctx.client_id)
+      if client and result then
+        local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+        local filtered = {}
+        for _, hint in ipairs(result) do
+          if hint.position.line + 1 == row then
+            table.insert(filtered, hint)
+          end
+        end
+        result = filtered
+      end
+      inlay_hint_handler(err, result, ctx, config)
+    end
+
     -- Brief aside: **What is LSP?**
     --
     -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -290,6 +307,14 @@ return {
           map('<leader>th', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
+          local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
+          vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            group = inlay_hints_group,
+            buffer = event.buf,
+            callback = function()
+              vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+            end,
+          })
         end
       end,
     })
