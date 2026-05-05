@@ -8,3 +8,4 @@ require 'config.autocmds'
 require 'config.health'
 require('config.lsp').setup()
 
+vim.cmd 'packadd nvim.undotree'

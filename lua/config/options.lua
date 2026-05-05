@@ -21,8 +21,6 @@ end)
 -- Indentation
 opt.breakindent = true
 
---wildmenu
-opt.wildmenu = true
 -- Undo history
 opt.undofile = true
 
@@ -52,3 +50,16 @@ opt.scrolloff = 10
 
 -- Confirmation dialogs
 opt.confirm = true
+
+vim.g.ts_highlight_enable = true
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    local lang = vim.treesitter.language.get_lang(vim.bo.filetype)
+    if lang then
+      pcall(vim.treesitter.language.add, lang)
+    end
+  end,
+})
+
+vim.o.winborder = 'rounded'

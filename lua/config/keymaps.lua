@@ -8,9 +8,6 @@ keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q
 
 -- Terminal mode keymaps
 keymap('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-keymap({ 'n', 'x' }, '<leader>ca', function()
-  require('tiny-code-action').code_action()
-end, { noremap = true, silent = true })
 -- Window navigation
 keymap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 keymap('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
@@ -19,7 +16,13 @@ keymap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 keymap('n', '<leader>bn', ':bnext<CR>', { desc = 'Next Buffer' })
 keymap('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous Buffer' })
 keymap('n', '<leader>bd', ':bdelete<CR>')
+keymap('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
 keymap('n', '<leader>fp', '<cmd>Telescope projects<CR>', { desc = 'find projects' })
+keymap('n', 'p', 'p=`]', { desc = 'Paste and auto-indent' })
+
+-- Keep cursor centered when scrolling
+keymap('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down centered' })
+keymap('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up centered' })
 -- Uncomment these if you want to disable arrow keys in normal mode
 -- keymap('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- keymap('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')

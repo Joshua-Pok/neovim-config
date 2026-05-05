@@ -19,6 +19,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
     { 'nvim-telescope/telescope-ui-select.nvim' },
     { 'nvim-telescope/telescope-live-grep-args.nvim' },
     { 'nvim-telescope/telescope-media-files.nvim' },
+    { 'debugloop/telescope-undo.nvim' },
+    { 'piersolenski/telescope-import.nvim' },
 
     {
       'ahmedkhalf/project.nvim',
@@ -78,6 +80,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
       -- pickers cope file_browser
       -- {}
       extensions = {
+        undo = {},
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
@@ -103,12 +106,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'file_browser')
     pcall(require('telescope').load_extension, 'live_grep_args')
     pcall(require('telescope').load_extension, 'media_files')
+    pcall(require('telescope').load_extension, 'undo')
+    pcall(require('telescope').load_extension, 'import')
+
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+    vim.keymap.set('n', '<leader>fu', '<cmd>Telescope undo<cr>', { desc = 'Undo history' })
+    vim.keymap.set('n', '<leader>fi', '<cmd>Telescope import<cr>', { desc = 'Import' })
     vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>fg', function()
       require('telescope').extensions.live_grep_args.live_grep_args()
