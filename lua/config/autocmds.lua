@@ -40,3 +40,22 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function()
+    vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1e2a3a' })
+  end,
+})
+
+local cursor_ns = vim.api.nvim_create_namespace 'cursor_emoji'
+
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+  callback = function()
+    vim.api.nvim_buf_clear_namespace(0, cursor_ns, 0, -1)
+    local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+    vim.api.nvim_buf_set_extmark(0, cursor_ns, row, 0, {
+      virt_text = { { '🐱   ', 'Normal' } },
+      virt_text_pos = 'right_align',
+    })
+  end,
+})

@@ -63,3 +63,5 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.o.winborder = 'rounded'
+
+vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#3a2a1e' })
