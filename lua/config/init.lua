@@ -21,18 +21,6 @@ require('arrow').setup {
 pcall(vim.pack.add, { 'https://github.com/windwp/nvim-autopairs' })
 require('nvim-autopairs').setup()
 
--- auto-save
-pcall(vim.pack.add, { 'https://github.com/Pocco81/auto-save.nvim' })
-require('auto-save').setup {
-  execution_message = {
-    message = function()
-      return ''
-    end,
-    dim = 0,
-    cleaning_interval = 0,
-  },
-}
-
 -- telescope and all extensions (telescope must be early since many plugins depend on it)
 pcall(vim.pack.add, { 'https://github.com/nvim-lua/plenary.nvim' })
 pcall(vim.pack.add, { 'https://github.com/nvim-tree/nvim-web-devicons' })
@@ -380,6 +368,7 @@ pcall(vim.pack.add, { 'https://github.com/chentoast/marks.nvim' })
 require('marks').setup()
 
 -- nvim-cmp and all dependencies
+pcall(vim.pack.add, { 'https://github.com/rafamadriz/friendly-snippets' })
 pcall(vim.pack.add, { 'https://github.com/L3MON4D3/LuaSnip' })
 pcall(vim.pack.add, { 'https://github.com/saadparwaiz1/cmp_luasnip' })
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-nvim-lsp' })
@@ -388,7 +377,6 @@ pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol' 
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-path' })
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-cmdline' })
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-nvim-lua' })
-pcall(vim.pack.add, { 'https://github.com/rafamadriz/friendly-snippets' })
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help' })
 pcall(vim.pack.add, { 'https://github.com/hrsh7th/nvim-cmp' })
 
