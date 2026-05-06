@@ -268,10 +268,6 @@
       "rev": "35f79f6253dff5cc43cf943d74c4b2734370a81d",
       "src": "https://github.com/tronikelis/ts-autotag.nvim"
     },
-    "uv.nvim": {
-      "rev": "b0bce1b61584fde99c316aa0587a4996c52df206",
-      "src": "https://github.com/benomahony/uv.nvim"
-    },
     "vim-visual-multi": {
       "rev": "a6975e7c1ee157615bbc80fc25e4392f71c344d4",
       "src": "https://github.com/mg979/vim-visual-multi"

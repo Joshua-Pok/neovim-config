@@ -69,11 +69,21 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 	end,
 })
 
+
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-	callback = function()
-		if vim.bo.modified and vim.bo.buftype == '' and vim.fn.expand '%' ~= '' then
-			vim.lsp.buf.format { async = false }
-			vim.cmd 'silent! write'
-		end
-	end,
+  callback = function()
+    if vim.bo.modified and vim.bo.buftype == '' and vim.fn.expand('%') ~= '' then
+      vim.lsp.buf.format({
+        async = false,
+        filter = function(client)
+          -- use ruff for python, exclude tsserver for js/ts (prefers eslint)
+          if vim.bo.filetype == 'python' then
+            return client.name == 'ruff'
+          end
+          return client.name ~= 'ts_ls'
+        end,
+      })
+      vim.cmd('silent! write')
+    end
+  end,
 })

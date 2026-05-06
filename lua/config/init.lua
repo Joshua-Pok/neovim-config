@@ -635,6 +635,7 @@ local servers = {
       },
     },
   },
+  ruff = {},
   ts_ls = {
     settings = {
       typescript = {
@@ -773,10 +774,6 @@ vim.keymap.set('n', '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>',
 vim.keymap.set('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'LSP Definitions / references / ...' })
 vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
 vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
-
--- uv.nvim
-pcall(vim.pack.add, { 'https://github.com/benomahony/uv.nvim' })
-require('uv').setup { picker_integration = true }
 
 -- vim-visual-multi
 pcall(vim.pack.add, { 'https://github.com/mg979/vim-visual-multi' })
