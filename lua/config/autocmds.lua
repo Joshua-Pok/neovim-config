@@ -40,6 +40,15 @@ vim.api.nvim_create_autocmd('InsertLeave', {
   end,
 })
 
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    local dir = vim.fn.expand '%:p:h'
+    if vim.fn.isdirectory(dir) == 1 and vim.bo.buftype == '' then
+      vim.cmd.lcd(dir)
+    end
+  end,
+})
+
 -- Restore cursor position when reopening a file
 vim.api.nvim_create_autocmd('BufReadPost', {
   desc = 'Restore cursor position',
