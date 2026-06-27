@@ -27,17 +27,10 @@ pcall(vim.pack.add, { 'https://github.com/nvim-tree/nvim-web-devicons' })
 pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' })
 pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope-ui-select.nvim' })
 pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope-live-grep-args.nvim' })
-pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope-media-files.nvim' })
 pcall(vim.pack.add, { 'https://github.com/debugloop/telescope-undo.nvim' })
 pcall(vim.pack.add, { 'https://github.com/piersolenski/telescope-import.nvim' })
-pcall(vim.pack.add, { 'https://github.com/ahmedkhalf/project.nvim' })
 pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope-file-browser.nvim' })
 pcall(vim.pack.add, { 'https://github.com/nvim-telescope/telescope.nvim' })
-
-require('project_nvim').setup {
-  detection_methods = { 'lsp', 'pattern' },
-  patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'package.json' },
-}
 
 require('telescope').setup {
   defaults = {
@@ -63,7 +56,6 @@ pcall(require('telescope').load_extension, 'ui-select')
 pcall(require('telescope').load_extension, 'projects')
 pcall(require('telescope').load_extension, 'file_browser')
 pcall(require('telescope').load_extension, 'live_grep_args')
-pcall(require('telescope').load_extension, 'media_files')
 pcall(require('telescope').load_extension, 'undo')
 pcall(require('telescope').load_extension, 'import')
 
@@ -483,7 +475,11 @@ cmp.setup.filetype('gitcommit', {
 })
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = { { name = 'buffer' } },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp_document_symbol' },
+  }, {
+    { name = 'buffer' },
+  }),
 })
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -557,6 +553,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+        end,
+      })
+    end
+    if client and client:supports_method 'textDocument/codeLens' then
+      vim.lsp.codelens.refresh { bufnr = event.buf }
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
+        buffer = event.buf,
+        callback = function()
+          vim.lsp.codelens.refresh { bufnr = event.buf }
         end,
       })
     end
