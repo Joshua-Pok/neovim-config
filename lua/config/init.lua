@@ -734,6 +734,7 @@ require('origami').setup()
 
 -- render-markdown
 pcall(vim.pack.add, { 'https://github.com/echasnovski/mini.nvim' })
+require('mini.move').setup()
 pcall(vim.pack.add, { 'https://github.com/MeanderingProgrammer/render-markdown.nvim' })
 require('render-markdown').setup { treesitter = false }
 
