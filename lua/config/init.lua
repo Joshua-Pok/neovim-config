@@ -475,11 +475,7 @@ cmp.setup.filetype('gitcommit', {
 })
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp_document_symbol' },
-  }, {
-    { name = 'buffer' },
-  }),
+  sources = { { name = 'buffer' }, { name = 'nvim_lsp_document_symbol' } },
 })
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -553,15 +549,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
-        end,
-      })
-    end
-    if client and client:supports_method 'textDocument/codeLens' then
-      vim.lsp.codelens.refresh { bufnr = event.buf }
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
-        buffer = event.buf,
-        callback = function()
-          vim.lsp.codelens.refresh { bufnr = event.buf }
         end,
       })
     end
@@ -732,9 +719,27 @@ vim.opt.foldlevelstart = 99
 pcall(vim.pack.add, { 'https://github.com/chrisgrieser/nvim-origami' })
 require('origami').setup()
 
+--tmux-vim-navigator
+vim.pack.add {
+  'https://github.com/christoomey/vim-tmux-navigator',
+}
+
+--git-worktree
+vim.pack.add {
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/nvim-telescope/telescope.nvim',
+  'https://github.com/ThePrimeagen/git-worktree.nvim',
+}
+
+require('telescope').setup {}
+require('git-worktree').setup {}
+require('telescope').load_extension 'git_worktree'
+
+vim.keymap.set('n', '<leader>gws', ':Telescope git_worktree git_worktrees<CR>', { desc = 'Switch worktree' })
+vim.keymap.set('n', '<leader>gwc', ':Telescope git_worktree create_git_worktree<CR>', { desc = 'Create worktree' })
+
 -- render-markdown
 pcall(vim.pack.add, { 'https://github.com/echasnovski/mini.nvim' })
-require('mini.move').setup()
 pcall(vim.pack.add, { 'https://github.com/MeanderingProgrammer/render-markdown.nvim' })
 require('render-markdown').setup { treesitter = false }
 

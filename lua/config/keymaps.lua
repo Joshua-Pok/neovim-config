@@ -24,7 +24,7 @@ keymap('n', 'p', 'p=`]', { desc = 'Paste and auto-indent' })
 keymap('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down centered' })
 keymap('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up centered' })
 vim.keymap.set('n', '<leader>t', function()
-	vim.cmd 'vsplit | wincmd l | terminal'
+  vim.cmd 'vsplit | wincmd l | terminal'
 end, { desc = 'Open terminal on right' })
 -- Uncomment these if you want to disable arrow keys in normal mode
 -- keymap('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -37,3 +37,10 @@ end, { desc = 'Open terminal on right' })
 -- keymap("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- keymap("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- keymap("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+--
+--
+-- vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+vim.keymap.set('n', '<C-j>', '<cmd>TmuxNavigateDown<CR>')
+vim.keymap.set('n', '<C-k>', '<cmd>TmuxNavigateUp<CR>')
+vim.keymap.set('n', '<C-l>', '<cmd>TmuxNavigateRight<CR>')
+vim.keymap.set('n', '<C-\\>', '<cmd>TmuxNavigatePrevious<CR>')
