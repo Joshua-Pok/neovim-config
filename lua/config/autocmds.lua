@@ -29,6 +29,17 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 	end,
 })
 
+-- oil autosave
+
+vim.api.nvim_create_autocmd('InsertLeave', {
+	desc = 'Trigger oil save preview on leaving insert mode',
+	callback = function()
+		if vim.bo.filetype == 'oil' then
+			require('oil').save { confirm = false }
+		end
+	end,
+})
+
 -- Restore cursor position when reopening a file
 vim.api.nvim_create_autocmd('BufReadPost', {
 	desc = 'Restore cursor position',
@@ -69,21 +80,26 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 	end,
 })
 
-
 vim.api.nvim_create_autocmd({ 'InsertLeave', 'TextChanged' }, {
-  callback = function()
-    if vim.bo.modified and vim.bo.buftype == '' and vim.fn.expand('%') ~= '' then
-      vim.lsp.buf.format({
-        async = false,
-        filter = function(client)
-          -- use ruff for python, exclude tsserver for js/ts (prefers eslint)
-          if vim.bo.filetype == 'python' then
-            return client.name == 'ruff'
-          end
-          return client.name ~= 'ts_ls'
-        end,
-      })
-      vim.cmd('silent! write')
-    end
-  end,
+	callback = function()
+		if vim.bo.modified and vim.bo.buftype == '' and vim.fn.expand '%' ~= '' then
+			vim.lsp.buf.format {
+				async = false,
+				filter = function(client)
+					-- use ruff for python, exclude tsserver for js/ts (prefers eslint)
+					if vim.bo.filetype == 'python' then
+						return client.name == 'ruff'
+					end
+					return client.name ~= 'ts_ls'
+				end,
+			}
+			vim.cmd 'silent! write'
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+	callback = function()
+		vim.cmd 'startinsert'
+	end,
 })

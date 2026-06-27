@@ -23,6 +23,9 @@ keymap('n', 'p', 'p=`]', { desc = 'Paste and auto-indent' })
 -- Keep cursor centered when scrolling
 keymap('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down centered' })
 keymap('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up centered' })
+vim.keymap.set('n', '<leader>t', function()
+	vim.cmd 'vsplit | wincmd l | terminal'
+end, { desc = 'Open terminal on right' })
 -- Uncomment these if you want to disable arrow keys in normal mode
 -- keymap('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- keymap('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
