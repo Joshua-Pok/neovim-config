@@ -781,9 +781,6 @@ vim.keymap.set('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.posit
 vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
 vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
 
--- vim-visual-multi
-pcall(vim.pack.add, { 'https://github.com/mg979/vim-visual-multi' })
-
 -- which-key
 pcall(vim.pack.add, { 'https://github.com/folke/which-key.nvim' })
 require('which-key').setup {
