@@ -8,5 +8,6 @@ vim.loader.enable()
 -- Set nerd font support
 vim.g.have_nerd_font = true
 
--- Load additional config
 require 'config'
+-- Load additional config
+require 'config.lazy'
