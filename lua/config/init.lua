@@ -666,15 +666,6 @@ require('mason-lspconfig').setup {
   },
 }
 
--- debugmaster
-pcall(vim.pack.add, { 'https://github.com/mfussenegger/nvim-dap' })
-pcall(vim.pack.add, { 'https://github.com/jbyuki/one-small-step-for-vimkind' })
-pcall(vim.pack.add, { 'https://github.com/miroshQa/debugmaster.nvim' })
-local dm = require 'debugmaster'
-vim.keymap.set({ 'n', 'v' }, '<leader>d', dm.mode.toggle, { nowait = true })
-vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-dm.plugins.osv_integration.enabled = true
-
 -- lualine
 pcall(vim.pack.add, { 'https://github.com/nvim-lualine/lualine.nvim' })
 require('lualine').setup {
