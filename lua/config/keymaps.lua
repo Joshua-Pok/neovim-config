@@ -19,6 +19,9 @@ keymap('n', '<leader>bd', ':bdelete<CR>')
 keymap('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
 keymap('n', '<leader>fp', '<cmd>Telescope projects<CR>', { desc = 'find projects' })
 keymap('n', 'p', 'p=`]', { desc = 'Paste and auto-indent' })
+keymap('n', '<leader>df', function()
+  MiniDiff.toggle_overlay(0)
+end, { desc = 'Toggle diff overlay' })
 
 -- Keep cursor centered when scrolling
 keymap('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down centered' })

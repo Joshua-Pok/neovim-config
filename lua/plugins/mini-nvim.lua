@@ -25,6 +25,7 @@ return {
 
       -- 3. Add, delete, and replace surroundings
       require('mini.surround').setup {}
+      require('mini.diff').setup {}
 
       -- 4. Smooth animations for scrolling, cursor, and windows
       require('mini.animate').setup {}
