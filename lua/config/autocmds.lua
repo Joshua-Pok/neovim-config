@@ -7,17 +7,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Auto-start treesitter highlighting
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    local ok, _ = pcall(vim.treesitter.start)
-    if not ok then
-      -- fallback to legacy syntax if no parser available
-      vim.cmd 'syntax on'
-    end
-  end,
-})
-
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd('BufWritePre', {
   desc = 'Remove trailing whitespace on save',
@@ -26,26 +15,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     local pos = vim.api.nvim_win_get_cursor(0)
     vim.cmd [[%s/\s\+$//e]]
     vim.api.nvim_win_set_cursor(0, pos)
-  end,
-})
-
--- oil autosave
-
-vim.api.nvim_create_autocmd('InsertLeave', {
-  desc = 'Autosave oil buffer on leaving insert mode',
-  callback = function()
-    if vim.bo.filetype == 'oil' then
-      require('oil').save()
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufEnter', {
-  callback = function()
-    local dir = vim.fn.expand '%:p:h'
-    if vim.fn.isdirectory(dir) == 1 and vim.bo.buftype == '' then
-      vim.cmd.lcd(dir)
-    end
   end,
 })
 
