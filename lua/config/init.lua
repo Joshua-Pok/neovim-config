@@ -334,11 +334,6 @@ require('lazydev').setup {
   },
 }
 
--- lazygit
-pcall(vim.pack.add, { 'https://github.com/nvim-lua/plenary.nvim' })
-pcall(vim.pack.add, { 'https://github.com/kdheepak/lazygit.nvim' })
-vim.keymap.set('n', '<leader>lg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
-
 -- nvim-lint
 pcall(vim.pack.add, { 'https://github.com/mfussenegger/nvim-lint' })
 local lint = require 'lint'
@@ -683,7 +678,7 @@ dm.plugins.osv_integration.enabled = true
 -- lualine
 pcall(vim.pack.add, { 'https://github.com/nvim-lualine/lualine.nvim' })
 require('lualine').setup {
-  options = { theme = 'powerline_dark' },
+  options = { theme = 'horizon' },
   sections = {
     lualine_c = { { 'filename', path = 2 } },
   },
