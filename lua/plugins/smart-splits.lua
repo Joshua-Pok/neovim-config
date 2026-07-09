@@ -2,28 +2,28 @@ return {
   'mrjones2014/smart-splits.nvim',
   keys = {
     {
-      '<C-h>',
+      '<A-S-h>',
       function()
         require('smart-splits').move_cursor_left()
       end,
       desc = 'Move cursor left',
     },
     {
-      '<C-j>',
+      '<A-S-j>',
       function()
         require('smart-splits').move_cursor_down()
       end,
       desc = 'Move cursor down',
     },
     {
-      '<C-k>',
+      '<A-S-k>',
       function()
         require('smart-splits').move_cursor_up()
       end,
       desc = 'Move cursor up',
     },
     {
-      '<C-l>',
+      '<A-S-l>',
       function()
         require('smart-splits').move_cursor_right()
       end,
