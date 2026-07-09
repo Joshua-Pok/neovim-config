@@ -23,6 +23,8 @@ keymap('n', '<leader>df', function()
   MiniDiff.toggle_overlay(0)
 end, { desc = 'Toggle diff overlay' })
 
+keymap('n', '<leader>gs', '<cmd>Telescope git_status<CR>', { noremap = true, silent = true, desc = 'Git status' })
+
 -- Keep cursor centered when scrolling
 keymap('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down centered' })
 keymap('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up centered' })

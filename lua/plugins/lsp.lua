@@ -29,6 +29,7 @@ return {
 				map("gO", builtin.lsp_document_symbols, "Open Document Symbols")
 				map("gW", builtin.lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 				map("grt", builtin.lsp_type_definitions, "[G]oto [T]ype Definition")
+				map("gra", vim.lsp.buf.code_action, "Code [A]ctions")
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 

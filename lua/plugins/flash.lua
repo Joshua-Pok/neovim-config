@@ -1,7 +1,25 @@
 return {
 	'folke/flash.nvim',
 	event = 'VeryLazy',
-	opts = {},
+	opts = {
+		modes = {
+			char = {
+				jump_labels = true,
+				multi_line = false,
+			}
+		},
+		search = {
+			multi_window = false,
+			forward = true,
+		},
+		label = {
+			uppercase = false,
+		},
+		prompt = {
+			enabled = true,
+			prefix = { { " FLASH ", "FlashPromptIcon" } },
+		}
+	},
 	keys = {
 		{
 			's',

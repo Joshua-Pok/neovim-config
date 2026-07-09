@@ -8,6 +8,8 @@ vim.loader.enable()
 -- Set nerd font support
 vim.g.have_nerd_font = true
 
+vim.opt.autochdir = true
+
 require 'config'
 -- Load additional config
 require 'config.lazy'
