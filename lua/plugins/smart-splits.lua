@@ -31,28 +31,28 @@ return {
     },
 
     {
-      '<A-h>',
+      '<A-S-h>',
       function()
         require('smart-splits').resize_left()
       end,
       desc = 'Resize window left',
     },
     {
-      '<A-j>',
+      '<A-S-j>',
       function()
         require('smart-splits').resize_down()
       end,
       desc = 'Resize window down',
     },
     {
-      '<A-k>',
+      '<A-S-k>',
       function()
         require('smart-splits').resize_up()
       end,
       desc = 'Resize window up',
     },
     {
-      '<A-l>',
+      '<A-S-l>',
       function()
         require('smart-splits').resize_right()
       end,
