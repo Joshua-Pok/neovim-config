@@ -13,7 +13,6 @@ return {
 
     -- Note: Your original snippet referenced `projects` and `media_files` in
     -- the config/extensions, but didn't have their URLs. I've added standard ones:
-    'nvim-telescope/telescope-media-files.nvim',
     'ahmedkhalf/project.nvim',
   },
   config = function()
@@ -33,11 +32,6 @@ return {
         undo = {},
         ['ui-select'] = { themes.get_dropdown() },
         file_browser = { hijack_netrw = true, previewer = true },
-        media_files = {
-          filetypes = { 'png', 'webp', 'jpg', 'jpeg', 'pdf' },
-          find_cmd = 'rg',
-          preview = { width = 0.7, height = 0.7 },
-        },
       },
     }
 
